@@ -1,3 +1,52 @@
 Assembly instructions available at;
 
 http://guides.cyntech.co.uk/raspberry-pi/assembling-the-word-clock/
+
+Revised requirements for:-
+
+main.py & snake.py
+
+sudo apt install python3-pip
+sudo pip install rpi_ws281x
+
+
+Requirements for
+
+Word-New.py rainbow1.py rainbow2.py
+
+sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+To Autorun
+
+sudo nano /etc/rc.local
+
+add
+python /home/pi/Wordclock/main.py &&
+
+
+Make into a Service
+
+sudo nano /lib/systemd/system/wordclock.service
+
+[Unit]
+Description=Word Clock Service
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/Wordclock/
+ExecStart=sudo python /home/pi/Wordclock/main.py
+KillSignal=SIGINT
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+
+sudo systemctl daemon-reload
+sudo systemctl enable wordclock.service
+sudo systemctl start wordclock.service

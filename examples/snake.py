@@ -6,10 +6,11 @@
 # Autor of Library : Jeremy Garff
 
 # Adjusted orientation to suit Wordclock layout - @Boeeerb
+# Updated the LED library as originial is no longer available
 
 
-import time, curses, thread, random
-from neopixel import *
+import time, curses, _thread, random
+from rpi_ws281x import Adafruit_NeoPixel, Color
 
 # with tread read data from keyboard
 def klavyeden ( threadName,bir):

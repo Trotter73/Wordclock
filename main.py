@@ -1,4 +1,4 @@
-from neopixel import *
+from rpi_ws281x import Adafruit_NeoPixel, Color
 from time import sleep
 from datetime import datetime
 import math
@@ -151,12 +151,11 @@ binc = 1
 
 
 while True:
+ try:
   time = datetime.now().time()
   hour,min,sec = str(time).split(":")
   hour = int(hour)
   min = int(min)
-
-#  min = 34
 
   clear()
 
@@ -268,3 +267,8 @@ while True:
 
   update()
   sleep(0.5)
+  
+ except KeyboardInterrupt:
+    clear()
+    update()
+    sys.exit()
